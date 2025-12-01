@@ -8,257 +8,157 @@ using UnityEngine.EventSystems;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Controls;
 
 namespace ARMagicBar.Resources.Scripts.PlacementBar
 {
     public class ARPlacementPlaneMesh : MonoBehaviour
     {
-        // Start is called before the first frame update
-
         private TransformableObject placementObject;
         private List<TransformableObject> instantiatedObjects = new();
-
         private Camera mainCam;
-        private bool placed;
 
-
-        [Header("Plane detection requires an AR Raycast Manager to be in the scene.")]
         [SerializeField] public ARPlacementMethod placementMethod;
-
+        [SerializeField] bool deactivateSpawning;
 
         public static ARPlacementPlaneMesh Instance;
         public event Action<TransformableObject> OnSpawnObject;
         public static bool justPlaced = false;
 
-        /// <summary>
-        /// Can be used for example when not placing objects but using it for something else
-        /// </summary>
         public event Action<(TransformableObject objectToSpawn, Vector2 screenPos)> OnSpawnObjectWithScreenPos;
         public event Action<(TransformableObject objectToSpawn, Vector3 hitPointPosition, Quaternion hitPointRotation)> OnSpawnObjectWithHitPosAndRotation;
-
-
-
-        [Header("Use deactivate spawning, when you want to use the tap for something else, e.g. select a spell in the bar and cast it")]
-        [SerializeField] bool deactivateSpawning;
-        //If you want to use the touch event for something else, subscribe to these methods.
         public event Action<Vector3> OnHitScreenAt;
         public event Action<(Vector3 position, Quaternion normal)> OnHitPlaneOrMeshAt;
         public event Action<GameObject> OnHitMeshObject;
 
-
-        public bool SetDeactivateSpawning
-        {
-            set;
-            get;
-        }
-
         private ARRaycastManager arRaycastManager;
+
+        public bool SetDeactivateSpawning { set; get; }
 
         private void Awake()
         {
-            if (!FindObjectOfType<EventSystem>())
-            {
-                Debug.LogError(AssetName.NAME + ": No event system found, please add an event system to the scene");
-            }
-
-
-            mainCam = FindObjectOfType<Camera>();
             Instance = this;
+
+            // FIX: Use Camera.main
+            mainCam = Camera.main;
+            if (mainCam == null) mainCam = FindObjectOfType<Camera>();
         }
 
         private void Start()
         {
-            PreparePlacementMethod();
-
-            CheckIfPlacementBarInScene();
-        }
-
-        private static void CheckIfPlacementBarInScene()
-        {
-            if (PlacementBarLogic.Instance == null)
+            if (placementMethod == ARPlacementMethod.planeDetection)
             {
-                CustomLog.Instance.InfoLog("Please add PlacementBarLogic to scene");
+                arRaycastManager = FindObjectOfType<ARRaycastManager>();
             }
         }
 
-
-        void PreparePlacementMethod()
-        {
-            switch (placementMethod)
-            {
-                case ARPlacementMethod.planeDetection:
-                    FindAndAssignRaycastManager();
-                    break;
-                case ARPlacementMethod.meshDetection:
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-        }
-
-        void FindAndAssignRaycastManager()
-        {
-            if (placementMethod == ARPlacementMethod.meshDetection) return;
-            CustomLog.Instance.InfoLog("Find assign Raycast => placemethod = " + placementMethod);
-
-            arRaycastManager = FindObjectOfType<ARRaycastManager>();
-
-            if (arRaycastManager == null)
-            {
-                Debug.LogError("Please add a AR raycast manager to your scene");
-            }
-        }
-
-        // Update is called once per frame
         void Update()
         {
             if (EventSystem.current == null) return;
 
-            // --- Unified Input Handling for Editor (Mouse) and Device (Touch) ---
+            bool isPressed = false;
+            Vector2 screenPos = Vector2.zero;
 
-            bool isMouseClick = false;
-            bool isTouchBegan = false;
-            Vector2 screenPosition = Vector2.zero;
-
-            // 1. Check for Mouse Input (for Editor only)
+            // Editor Mouse
 #if UNITY_EDITOR
             if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
             {
-                isMouseClick = true;
-                screenPosition = Mouse.current.position.ReadValue();
+                isPressed = true;
+                screenPos = Mouse.current.position.ReadValue();
             }
 #endif
 
-            // 2. Check for New Input System Touch (for Device and Editor)
+            // Android Touch
             if (Touchscreen.current != null)
             {
-                TouchControl primaryTouch = Touchscreen.current.primaryTouch;
-
-                if (primaryTouch.press.wasPressedThisFrame) // Check if touch just started
+                var touch = Touchscreen.current.primaryTouch;
+                if (touch.press.wasPressedThisFrame)
                 {
-                    isTouchBegan = true;
-                    screenPosition = primaryTouch.position.ReadValue();
+                    isPressed = true;
+                    screenPos = touch.position.ReadValue();
                 }
             }
 
-            // 3. Process Input if detected (Either Mouse or Touch)
-            if (isMouseClick || isTouchBegan)
+            if (isPressed)
             {
-                // Check if the click/tap is over UI (Handles both mouse and touch via EventSystem)
-                // Note: The new Input System also provides cleaner ways to handle UI hits,
-                // but this re-uses the existing RaycastAll approach.
-
+                // UI Block Check
                 PointerEventData pointerData = new PointerEventData(EventSystem.current);
-                pointerData.position = screenPosition;
-
+                pointerData.position = screenPos;
                 List<RaycastResult> results = new List<RaycastResult>();
-
                 EventSystem.current.RaycastAll(pointerData, results);
 
-                if (results.Count > 0)
-                {
-                    CustomLog.Instance.InfoLog("Click / Tap over UI object (via EventSystem)");
-                    return;
-                }
+                if (results.Count > 0) return; // Hit UI, stop.
 
-                // If input is valid and not over UI, proceed with placement logic
+                // Placement Logic
                 if (placementMethod == ARPlacementMethod.planeDetection)
                 {
-                    TouchToRayPlaneDetection(screenPosition);
+                    TouchToRayPlaneDetection(screenPos);
                 }
                 else
                 {
-                    TouchToRayMeshing(screenPosition);
-                    OnHitScreenAt?.Invoke(screenPosition);
+                    TouchToRayMeshing(screenPos);
+                    OnHitScreenAt?.Invoke(screenPos);
                 }
 
-                OnSpawnObjectWithScreenPos?.Invoke((PlacementBarLogic.Instance.GetPlacementObject(), screenPosition));
+                OnSpawnObjectWithScreenPos?.Invoke((PlacementBarLogic.Instance.GetPlacementObject(), screenPos));
             }
         }
 
-
-        //Shoot ray against AR planes
-        void TouchToRayPlaneDetection(Vector3 touch)
+        void TouchToRayPlaneDetection(Vector2 touch)
         {
             if (deactivateSpawning)
             {
                 OnHitScreenAt?.Invoke(touch);
             }
 
-
+            // Ensure we use the correct camera for the ray
             Ray ray = mainCam.ScreenPointToRay(touch);
             List<ARRaycastHit> hits = new();
 
-            arRaycastManager.Raycast(ray, hits, TrackableType.Planes);
-            CustomLog.Instance.InfoLog("ShootingRay Plane Detection, hitcount => " + hits.Count);
-            if (hits.Count > 0)
+            if (arRaycastManager.Raycast(ray, hits, TrackableType.Planes))
             {
-                InstantiateObjectAtPosition(hits[0].pose.position, Quaternion.LookRotation(Vector3.forward));
-                // hits[0].pose.rotation);
+                // Hit found
+                Pose hitPose = hits[0].pose;
+                InstantiateObjectAtPosition(hitPose.position, Quaternion.LookRotation(Vector3.forward));
             }
         }
 
-        //Shoot ray against procedural AR Mesh
-        void TouchToRayMeshing(Vector3 touch)
+        void TouchToRayMeshing(Vector2 touch)
         {
             if (deactivateSpawning)
             {
                 OnHitScreenAt?.Invoke(touch);
             }
 
-            CustomLog.Instance.InfoLog("ShootingRay AR Meshing");
-
             Ray ray = mainCam.ScreenPointToRay(touch);
-            RaycastHit hit;
-
-            if (Physics.Raycast(ray, out hit))
+            if (Physics.Raycast(ray, out RaycastHit hit))
             {
                 OnHitMeshObject?.Invoke(hit.transform.gameObject);
                 InstantiateObjectAtPosition(hit.point, hit.transform.rotation);
             }
         }
 
-
-        /// <summary>
-        /// Method to externally call to spawn an object, Invokes the OnSpawnObject event 
-        /// </summary>
-        /// <param name="position"></param>
-        /// <param name="rotation"></param>
         public void SpawnObjectAtPosition(Vector3 position, Quaternion rotation)
         {
             InstantiateObjectAtPosition(position, rotation);
         }
 
-        //Instantiate Object at the raycast position
         void InstantiateObjectAtPosition(Vector3 position, Quaternion rotation)
         {
-            CustomLog.Instance.InfoLog("Should instantiate object at position " + position);
-
-
             if (deactivateSpawning)
             {
-                CustomLog.Instance.InfoLog("Preventing Spawning as deactivate Spawning is enabled");
-                (Vector3, Quaternion) positionRotation = (position, rotation);
-                OnHitPlaneOrMeshAt?.Invoke(positionRotation);
+                OnHitPlaneOrMeshAt?.Invoke((position, rotation));
                 OnSpawnObjectWithHitPosAndRotation?.Invoke((PlacementBarLogic.Instance.GetPlacementObject(), position, rotation));
                 return;
             }
 
             placementObject = PlacementBarLogic.Instance.GetPlacementObject();
-            CustomLog.Instance.InfoLog("PlacementBarLogic.Instance-GetPlacementObj => " + placementObject + " "
-                + "functionReturns: " + PlacementBarLogic.Instance.GetPlacementObject());
 
-            //Check if it should place
             if (placementObject == null) return;
 
             TransformableObject placeObject = Instantiate(placementObject);
-            CustomLog.Instance.InfoLog("Placeobject => Instantiate " + placeObject.name);
-
             OnSpawnObject?.Invoke(placeObject);
 
             placeObject.transform.position = position;
-            // placeObject.transform.rotation = rotation;
 
             instantiatedObjects.Add(placeObject);
             justPlaced = true;
@@ -267,9 +167,5 @@ namespace ARMagicBar.Resources.Scripts.PlacementBar
         }
     }
 
-    public enum ARPlacementMethod
-    {
-        planeDetection,
-        meshDetection
-    }
+    public enum ARPlacementMethod { planeDetection, meshDetection }
 }

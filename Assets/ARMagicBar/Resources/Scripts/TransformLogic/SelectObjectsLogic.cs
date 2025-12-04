@@ -5,7 +5,7 @@ using ARMagicBar.Resources.Scripts.Gizmo;
 using ARMagicBar.Resources.Scripts.PlacementBar;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
+using UnityEngine.InputSystem; // Using Input System
 
 namespace ARMagicBar.Resources.Scripts.TransformLogic
 {
@@ -64,17 +64,20 @@ namespace ARMagicBar.Resources.Scripts.TransformLogic
             // --- Unified Input Check ---
             bool isPressed = false;
             Vector2 screenPos = Vector2.zero;
+            // CRITICAL ADDITION: Initialize pointerId. -1 is standard for non-touch/mouse.
+            int pointerId = -1;
 
-            // Editor Mouse
+            // Editor Mouse (PC)
 #if UNITY_EDITOR
             if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
             {
                 isPressed = true;
                 screenPos = Mouse.current.position.ReadValue();
+                // pointerId remains -1 for mouse input.
             }
 #endif
 
-            // Android Touch
+            // Android Touch (Mobile)
             if (Touchscreen.current != null)
             {
                 var touch = Touchscreen.current.primaryTouch;
@@ -82,22 +85,18 @@ namespace ARMagicBar.Resources.Scripts.TransformLogic
                 {
                     isPressed = true;
                     screenPos = touch.position.ReadValue();
+                    // CRITICAL FIX: Capture the touch ID for UI blocking.
+                    pointerId = touch.touchId.value;
                 }
             }
 
             // Execution
             if (isPressed)
             {
-                // UI BLOCK CHECK
-                PointerEventData pointerData = new PointerEventData(EventSystem.current);
-                pointerData.position = screenPos;
-                List<RaycastResult> results = new List<RaycastResult>();
-                EventSystem.current.RaycastAll(pointerData, results);
-
-                // If we hit UI, stop. 
-                // NOTE: Ensure your Background Panel has 'Raycast Target' UNCHECKED in the Inspector!
-                if (results.Count > 0)
+                // FIXED UI BLOCK CHECK: Use the reliable method with the touch pointer ID.
+                if (EventSystem.current.IsPointerOverGameObject(pointerId))
                 {
+                    // The user tapped on a UI element, so ignore world object selection.
                     return;
                 }
 

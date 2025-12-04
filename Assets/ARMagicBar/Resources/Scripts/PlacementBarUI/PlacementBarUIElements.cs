@@ -247,51 +247,65 @@ namespace ARMagicBar.Resources.Scripts.PlacementBarUI
             OnUiElementSelected?.Invoke(null);
             DeselectAllElements();
         }
-    
+
         void CheckForSelectUIElement()
         {
-            if(EventSystem.current == null) return;
-        
+            if (EventSystem.current == null) return;
+
             Vector2 inputPos = Vector2.zero;
             bool isInputDetected = false;
+            // CRITICAL FIX: Initialize pointerId to -1 (the default ID for mouse/left-click)
+            int pointerId = PointerInputModule.kMouseLeftId;
 
-            // Check for touch input
+
+            // Check for touch input (Mobile)
             if (Touchscreen.current != null && Touchscreen.current.primaryTouch.press.wasPressedThisFrame)
             {
-                inputPos = Input.GetTouch(0).position;
+                // Fixes the mix of old Input (Input.GetTouch) with InputSystem check
+                inputPos = Touchscreen.current.primaryTouch.position.ReadValue();
                 isInputDetected = true;
+
+                // CRITICAL FIX FOR MOBILE: Capture the unique touch ID
+                pointerId = Touchscreen.current.primaryTouch.touchId.value;
             }
 
 #if UNITY_EDITOR
-        
-            // Check for mouse input
+
+            // Check for mouse input (PC)
             else if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
             {
                 inputPos = Mouse.current.position.ReadValue();
                 isInputDetected = true;
-            }
+                // pointerId remains -1, which is the correct default for mouse input
+            }
 #endif
-        
-        
+
+
             // Proceed only if an input is detected
             if (isInputDetected)
             {
 
-                PointerEventData pointerEventData = new PointerEventData(EventSystem.current) { position = inputPos };
+                PointerEventData pointerEventData = new PointerEventData(EventSystem.current)
+                {
+                    position = inputPos,
+                    // FIX: Use the collected pointer ID for accurate platform-specific raycasting
+                    pointerId = pointerId
+                };
+
                 List<RaycastResult> results = new List<RaycastResult>();
                 EventSystem.current.RaycastAll(pointerEventData, results);
 
-                //Is over UI Object ?
-                if (results.Count > 0)
+                //Is over UI Object ?
+                if (results.Count > 0)
                 {
                     foreach (var raycastResult in results)
                     {
                         PlacementObjectUiItem selectedUiItem = raycastResult.gameObject.GetComponentInParent<PlacementObjectUiItem>();
-                    
-                        if(selectedUiItem == null) continue;
 
-                    
-                    
+                        if (selectedUiItem == null) continue;
+
+
+
                         if (selectedUiItem.TryGetComponent(out HideUIElement hidePlacementBarUI))
                         {
                             if (barIsHidden)
@@ -311,22 +325,22 @@ namespace ARMagicBar.Resources.Scripts.PlacementBarUI
                             PageUp();
                             ShowItemsOnCurrentPage();
                         }
-                    
+
 
                         if (selectedUiItem != null)
                         {
-                            if(selectedUiItem.IsDisabled())
+                            if (selectedUiItem.IsDisabled())
                                 return;
-                        
+
                             if (_uiObjectGameObjects.Contains(selectedUiItem))
                             {
-                            
+
                                 if (selectedUiItem.IsActive())
                                 {
-                                
+
                                     OnUiElementSelected?.Invoke(null);
                                     // OnUiElementSelectedSO?.Invoke(null);
-                                
+
                                     selectedUiItem.HideSelectedState();
                                 }
                                 else
@@ -334,8 +348,8 @@ namespace ARMagicBar.Resources.Scripts.PlacementBarUI
                                     selectedUiItem.ShowSelectedState();
                                     OnUiElementSelected?.Invoke(selectedUiItem.GetCorrespondingObject());
                                     // OnUiElementSelectedSO?.Invoke(selectedUiItem.CorrespondingPlacementObjectSO);
-                                
-                                
+
+
                                     foreach (var objects in _uiObjectGameObjects)
                                     {
                                         if (objects != selectedUiItem)
@@ -343,7 +357,7 @@ namespace ARMagicBar.Resources.Scripts.PlacementBarUI
                                             objects.HideSelectedState();
                                         }
                                     }
-                                } 
+                                }
                                 break;
                             }
                         }
@@ -351,9 +365,9 @@ namespace ARMagicBar.Resources.Scripts.PlacementBarUI
                 }
                 else
                 {
-                    //When Clicking anywhere not on the UI
-                    // DeselectAllElements();
-                }
+                    //When Clicking anywhere not on the UI
+                    // DeselectAllElements();
+                }
             }
         }
     }

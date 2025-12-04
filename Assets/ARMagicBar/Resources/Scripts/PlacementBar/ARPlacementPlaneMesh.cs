@@ -15,7 +15,8 @@ namespace ARMagicBar.Resources.Scripts.PlacementBar
     {
         private TransformableObject placementObject;
         private List<TransformableObject> instantiatedObjects = new();
-        private Camera mainCam;
+        [SerializeField] private Camera mainCam;
+        private bool placed;
 
         [SerializeField] public ARPlacementMethod placementMethod;
         [SerializeField] bool deactivateSpawning;
@@ -36,11 +37,19 @@ namespace ARMagicBar.Resources.Scripts.PlacementBar
 
         private void Awake()
         {
+            if (!FindObjectOfType<EventSystem>())
+            {
+                Debug.LogError(AssetName.NAME + ": No event system found...");
+            }
+
             Instance = this;
 
-            // FIX: Use Camera.main
-            mainCam = Camera.main;
-            if (mainCam == null) mainCam = FindObjectOfType<Camera>();
+            // Fallback logic
+            if (mainCam == null)
+            {
+                mainCam = Camera.main;
+                if (mainCam == null) mainCam = FindObjectOfType<Camera>();
+            }
         }
 
         private void Start()
@@ -57,6 +66,8 @@ namespace ARMagicBar.Resources.Scripts.PlacementBar
 
             bool isPressed = false;
             Vector2 screenPos = Vector2.zero;
+            // Initialize pointerId. -1 is commonly used for mouse input.
+            int pointerId = -1;
 
             // Editor Mouse
 #if UNITY_EDITOR
@@ -64,6 +75,7 @@ namespace ARMagicBar.Resources.Scripts.PlacementBar
             {
                 isPressed = true;
                 screenPos = Mouse.current.position.ReadValue();
+                // pointerId remains -1 for mouse.
             }
 #endif
 
@@ -75,18 +87,22 @@ namespace ARMagicBar.Resources.Scripts.PlacementBar
                 {
                     isPressed = true;
                     screenPos = touch.position.ReadValue();
+                    // Get the actual touch ID. 
+                    // This is essential for reliable UI detection on mobile when using Input System.
+                    pointerId = touch.touchId.value;
                 }
             }
 
             if (isPressed)
             {
-                // UI Block Check
-                PointerEventData pointerData = new PointerEventData(EventSystem.current);
-                pointerData.position = screenPos;
-                List<RaycastResult> results = new List<RaycastResult>();
-                EventSystem.current.RaycastAll(pointerData, results);
+                // UI Block Check: Use the native, reliable check with the pointer ID.
+                if (EventSystem.current.IsPointerOverGameObject(pointerId))
+                {
+                    // Hit UI, stop world placement logic immediately.
+                    return;
+                }
 
-                if (results.Count > 0) return; // Hit UI, stop.
+                // If code reaches here, the tap was NOT on UI, proceed with Placement Logic.
 
                 // Placement Logic
                 if (placementMethod == ARPlacementMethod.planeDetection)

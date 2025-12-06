@@ -775,6 +775,7 @@ GameObject:
   - component: {fileID: 1688912198729845107}
   - component: {fileID: 5887850507663163209}
   - component: {fileID: 782941421469003975}
+  - component: {fileID: 6525582433672962169}
   m_Layer: 6
   m_Name: WoodenPlank
   m_TagString: Untagged
@@ -927,6 +928,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ResetRbPositionOfObject
   rb: {fileID: 1688912198729845107}
+--- !u!114 &6525582433672962169
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1817568361976915828}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 072b87bdc38868446b2251008f0ce757, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ARTargetPractice.Core.Target
+  TransformableObjectReference: {fileID: 0}
+  scoreValue: 10
+  destroyDelay: 1
 --- !u!1 &1846119056261450512
 GameObject:
   m_ObjectHideFlags: 0
@@ -5030,9 +5046,6 @@ GameObject:
   - component: {fileID: 8042523051159851218}
   - component: {fileID: 1469364180239067619}
   - component: {fileID: 5872965476214815897}
-  - component: {fileID: 1794321196319788640}
-  - component: {fileID: 6469067226215505818}
-  - component: {fileID: 3118643371133238380}
   m_Layer: 6
   m_Name: WoodenPlankParent_Placeable
   m_TagString: Untagged
@@ -5149,69 +5162,6 @@ MonoBehaviour:
   selectedMaterialURP: {fileID: 2100000, guid: 4f61532d5437a45b681ae802f44572a1, type: 2}
   objectRenderers: []
   parentOfRenderer: {fileID: 0}
---- !u!65 &1794321196319788640
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8747974547777701942}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &6469067226215505818
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8747974547777701942}
-  serializedVersion: 5
-  m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 3
---- !u!114 &3118643371133238380
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8747974547777701942}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 072b87bdc38868446b2251008f0ce757, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ARTargetPractice.Core.Target
-  TransformableObjectReference: {fileID: 0}
-  scoreValue: 10
-  destroyDelay: 5
 --- !u!1 &8810726544929171112
 GameObject:
   m_ObjectHideFlags: 0

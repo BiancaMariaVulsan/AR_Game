@@ -36,13 +36,21 @@ namespace ARMagicBar.Resources.Scripts.TransformLogic
         private void OnEnable()
         {
             TransformableObjectReference = this.transform.gameObject;
-            Visual = GetVisual().gameObject;
 
-            if (Visual == null)
+            // FIX: Capture the transform first to check for null safely.
+            UnityEngine.Transform visualTransform = GetVisual();
+
+            // Check if the visual was found. If not, log an error and stop.
+            if (visualTransform == null)
             {
-                Debug.LogError("Placeable Object has no Transform attached");
+                // This original message is misleading, replacing it with a more informative one:
+                Debug.LogError("Placeable Object is missing the required child object with the 'PlacementObjectVisual.PlacementObjectVisual' component attached.");
                 return;
             }
+
+            // It is now safe to assign the visual and access its properties.
+            Visual = visualTransform.gameObject;
+
             visualOriginalTransformPosition = Visual.transform.localPosition;
             visualOriginalTransformRotation = Visual.transform.localRotation;
             visualOriginalTransformScale = Visual.transform.localScale;

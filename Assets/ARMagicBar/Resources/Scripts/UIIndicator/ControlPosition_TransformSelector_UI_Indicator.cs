@@ -38,7 +38,14 @@ namespace ARMagicBar.Resources.Scripts.UIIndicator
             {
                 selectVisualLogic = FindObjectOfType<SelectVisualLogic>();
             }
-        
+
+            // Check if selectVisualLogic is available and has renderers
+            if (selectVisualLogic == null || selectVisualLogic.ReturnRenderer().Count == 0)
+            {
+                objectHasNoRenderer = true;
+                return;
+            }
+
             // Make sure the _transformableObjectSelectVisual is assigned
             TransformableObjectBounds = ReturnHighestBounds(selectVisualLogic.ReturnRenderer());;
 
@@ -51,6 +58,13 @@ namespace ARMagicBar.Resources.Scripts.UIIndicator
             InitialBounds = TransformableObjectBounds;
             UI_TransformElements.transform.position =  new Vector3(InitialBounds.center.x,InitialBounds.max.y, InitialBounds.center.z);
             _placementObjectVisual = selectVisualLogic.GetComponentInChildren<PlacementObjectVisual.PlacementObjectVisual>();
+
+            // CRITICAL CHECK: Assign the visual and check for null.
+            if (_placementObjectVisual == null)
+            {
+                // If visual logic is missing the component, treat as no-renderer
+                objectHasNoRenderer = true;
+            }
         }
 
         private void Update()
@@ -70,6 +84,8 @@ namespace ARMagicBar.Resources.Scripts.UIIndicator
 
         float CalculateCircleRadius()
         {
+            if (_placementObjectVisual == null) return 0f;
+
             float radius = Math.Max(_placementObjectVisual.gameObject.transform.localScale.x,
                 _placementObjectVisual.transform.localScale.z);
 

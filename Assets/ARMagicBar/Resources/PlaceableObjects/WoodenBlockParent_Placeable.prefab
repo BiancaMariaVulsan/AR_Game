@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 123015675909383900}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Z-
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 970387400886918689}
   - component: {fileID: 4596057561342278604}
   - component: {fileID: 8528286093247121400}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: UIElementScale
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 8596441212818505548}
   - component: {fileID: 3935425635068962022}
   - component: {fileID: 4076849768126857282}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: MoveZ
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -270,7 +270,7 @@ GameObject:
   - component: {fileID: 7960819369141280026}
   - component: {fileID: 4302950744117166062}
   - component: {fileID: 7440964248548541360}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Arrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -382,7 +382,7 @@ GameObject:
   - component: {fileID: 1747531533060191315}
   - component: {fileID: 9015328430891004912}
   - component: {fileID: 5418479536757543287}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -499,7 +499,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3920773512366433584}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Y
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -540,7 +540,7 @@ GameObject:
   - component: {fileID: 4327764170234532202}
   - component: {fileID: 7003489628019956060}
   - component: {fileID: 3242197451740621011}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: RotateX+
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -678,7 +678,7 @@ GameObject:
   - component: {fileID: 7092734207156496292}
   - component: {fileID: 1607258726647736845}
   - component: {fileID: 5089907435764849327}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: RotateY-
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -825,7 +825,7 @@ GameObject:
   - component: {fileID: 3414207631707752159}
   - component: {fileID: 817681465502312057}
   - component: {fileID: 5256535705963538464}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: UIElementMove
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -917,7 +917,7 @@ GameObject:
   - component: {fileID: 4862388371407812442}
   - component: {fileID: 6695875467655510462}
   - component: {fileID: 7157594675562345272}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: RotateY
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1066,7 +1066,7 @@ GameObject:
   - component: {fileID: 8131181120922902854}
   - component: {fileID: 2094605361954026474}
   - component: {fileID: 5903608618838981992}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: MoveX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1203,7 +1203,7 @@ GameObject:
   - component: {fileID: 1599191379822152367}
   - component: {fileID: 6389009264714811834}
   - component: {fileID: 8641771224081120900}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: ScaleZ
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1343,7 +1343,7 @@ GameObject:
   - component: {fileID: 4380992082962579696}
   - component: {fileID: 4974751361240830882}
   - component: {fileID: 1164953706443795174}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: WoodenBlock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1465,7 +1465,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -1521,7 +1521,7 @@ GameObject:
   - component: {fileID: 8611646189256033322}
   - component: {fileID: 7640521124919260323}
   - component: {fileID: 4573994334761731788}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: RotateCircleZ
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1580,7 +1580,7 @@ GameObject:
   - component: {fileID: 8289815285538969670}
   - component: {fileID: 6182880134181925200}
   - component: {fileID: 8043989017039629758}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1700,7 +1700,7 @@ GameObject:
   - component: {fileID: 2641677538055639330}
   - component: {fileID: 209412837121248033}
   - component: {fileID: 4916907488082813611}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Arrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1809,7 +1809,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2572721865509074324}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: UI_TransformElements
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1852,7 +1852,7 @@ GameObject:
   - component: {fileID: 3422667562916197037}
   - component: {fileID: 1358669766741047306}
   - component: {fileID: 2024091397049222931}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: BackgtoundBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1925,7 +1925,7 @@ GameObject:
   - component: {fileID: 3318761209889885700}
   - component: {fileID: 3778556502424360146}
   - component: {fileID: 5779997674406820974}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: UIElementRotate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2012,7 +2012,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8326175826594510473}
   - component: {fileID: 4930823982688396252}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Exit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2104,7 +2104,7 @@ GameObject:
   - component: {fileID: 7074329047492657441}
   - component: {fileID: 7234395691576854613}
   - component: {fileID: 6570736349078744488}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2223,7 +2223,7 @@ GameObject:
   - component: {fileID: 1732788978312926504}
   - component: {fileID: 5326512975777410404}
   - component: {fileID: 7791036747419647642}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Bg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2326,7 +2326,7 @@ GameObject:
   - component: {fileID: 2578703523383978307}
   - component: {fileID: 346557063229874318}
   - component: {fileID: 8084012274169844385}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Bg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2430,7 +2430,7 @@ GameObject:
   - component: {fileID: 3955295281663676799}
   - component: {fileID: 163162665918229982}
   - component: {fileID: 1196552092718642892}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2552,7 +2552,7 @@ GameObject:
   - component: {fileID: 4101899968204603632}
   - component: {fileID: 643587615176552115}
   - component: {fileID: 8016757378947100996}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: MoveY
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2687,7 +2687,7 @@ GameObject:
   - component: {fileID: 772124076271355441}
   - component: {fileID: 1039178984555357815}
   - component: {fileID: 7776509924895291921}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2806,7 +2806,7 @@ GameObject:
   - component: {fileID: 489892019700130941}
   - component: {fileID: 6968000594147916860}
   - component: {fileID: 3881269381368325818}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: BackToTransformUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2867,7 +2867,7 @@ GameObject:
   - component: {fileID: 5609112276522544812}
   - component: {fileID: 4933451733683302758}
   - component: {fileID: 7463452962059210109}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2980,7 +2980,7 @@ GameObject:
   - component: {fileID: 9164148514042576853}
   - component: {fileID: 2911894440539263450}
   - component: {fileID: 4953205424574569858}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: RotateX-
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3113,7 +3113,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4550014802297215900}
   - component: {fileID: 7702627672334473907}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: UIElementDelete
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3161,7 +3161,7 @@ GameObject:
   - component: {fileID: 533542730309183786}
   - component: {fileID: 9798227203824631}
   - component: {fileID: 3496782385114883406}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: RotateCircleX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3218,7 +3218,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2778032923755456538}
   - component: {fileID: 2910442763601137059}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Delete
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3313,7 +3313,7 @@ GameObject:
   - component: {fileID: 2181910471336886038}
   - component: {fileID: 9117916468208695061}
   - component: {fileID: 3460803911207002635}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: RotateZ
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3462,7 +3462,7 @@ GameObject:
   - component: {fileID: 3951316078092771145}
   - component: {fileID: 1905289055261483598}
   - component: {fileID: 912172729052716680}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: UITransformElements
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3599,7 +3599,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1451553475126516785}
   - component: {fileID: 7241854216495932281}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Gizmos_UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3647,7 +3647,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2164290350564628843}
   - component: {fileID: 8641024926935003913}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3738,7 +3738,7 @@ GameObject:
   - component: {fileID: 5123074663993361859}
   - component: {fileID: 3605228590761994082}
   - component: {fileID: 5755658764466909124}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: ResetButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3801,7 +3801,7 @@ GameObject:
   - component: {fileID: 272416612945673932}
   - component: {fileID: 2978726538028603001}
   - component: {fileID: 2578434621913220811}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: ScaleX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3938,7 +3938,7 @@ GameObject:
   - component: {fileID: 1322546086705396097}
   - component: {fileID: 8998932628819678446}
   - component: {fileID: 7881491666054821557}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4047,7 +4047,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5517161116968560743}
   - component: {fileID: 6317844424878953780}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Reset
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4137,7 +4137,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7253997005503340137}
   - component: {fileID: 3785570764154870753}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: WoodenBlockParent(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4181,7 +4181,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1740747552354923419}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Y-
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4216,7 +4216,7 @@ GameObject:
   - component: {fileID: 4721422973938439826}
   - component: {fileID: 8260372406538346281}
   - component: {fileID: 5993096159979897157}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Arrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4331,7 +4331,7 @@ GameObject:
   - component: {fileID: 7261586398940328555}
   - component: {fileID: 3208564015967924545}
   - component: {fileID: 6664354173508095233}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: WoodenBlockParent_Placeable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4461,7 +4461,7 @@ GameObject:
   - component: {fileID: 3197853263493106250}
   - component: {fileID: 4535404046765322232}
   - component: {fileID: 6080196691987129521}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: ScaleY
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4597,7 +4597,7 @@ GameObject:
   - component: {fileID: 2560285214227513734}
   - component: {fileID: 650172058480001656}
   - component: {fileID: 4620892751787751306}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4714,7 +4714,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5341231116644897452}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: X
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4753,7 +4753,7 @@ GameObject:
   - component: {fileID: 5736512722658220787}
   - component: {fileID: 6902606551318996716}
   - component: {fileID: 1543192276230021038}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4867,7 +4867,7 @@ GameObject:
   - component: {fileID: 2027970980688398298}
   - component: {fileID: 7015057056726335361}
   - component: {fileID: 8339901632340464803}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: RotateZ-
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5015,7 +5015,7 @@ GameObject:
   - component: {fileID: 7632002911103694753}
   - component: {fileID: 7234208438215400096}
   - component: {fileID: 4987416263369048978}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: MiddleCube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5137,7 +5137,7 @@ GameObject:
   - component: {fileID: 2344336897330904248}
   - component: {fileID: 1203019322698669340}
   - component: {fileID: 6738296181691634073}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: RotateCircleY
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5193,7 +5193,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8352242198103580769}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: TransformElements
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5227,7 +5227,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4603777992633852812}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Z
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5263,7 +5263,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6528709465656164326}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: X-
   m_TagString: Untagged
   m_Icon: {fileID: 0}

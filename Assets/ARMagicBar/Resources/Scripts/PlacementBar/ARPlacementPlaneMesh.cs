@@ -8,142 +8,176 @@ using UnityEngine.EventSystems;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
 using UnityEngine.InputSystem;
+using ARTargetPractice.Core; // Link to GameManager
 
 namespace ARMagicBar.Resources.Scripts.PlacementBar
 {
     public class ARPlacementPlaneMesh : MonoBehaviour
     {
-        private TransformableObject placementObject;
-        private List<TransformableObject> instantiatedObjects = new();
         [SerializeField] private Camera mainCam;
-        private bool placed;
-
         [SerializeField] public ARPlacementMethod placementMethod;
         [SerializeField] bool deactivateSpawning;
 
         public static ARPlacementPlaneMesh Instance;
-        public event Action<TransformableObject> OnSpawnObject;
-        public static bool justPlaced = false;
+        public static bool justPlaced = false; // Required by SelectObjectsLogic.cs
 
-        public event Action<(TransformableObject objectToSpawn, Vector2 screenPos)> OnSpawnObjectWithScreenPos;
-        public event Action<(TransformableObject objectToSpawn, Vector3 hitPointPosition, Quaternion hitPointRotation)> OnSpawnObjectWithHitPosAndRotation;
+        public event Action<TransformableObject> OnSpawnObject;
+
+        // Event pointers required by existing scripts (omitted definition for brevity)
         public event Action<Vector3> OnHitScreenAt;
-        public event Action<(Vector3 position, Quaternion normal)> OnHitPlaneOrMeshAt;
         public event Action<GameObject> OnHitMeshObject;
+        public event Action<(TransformableObject objectToSpawn, Vector2 screenPos)> OnSpawnObjectWithScreenPos;
+        public event Action<(Vector3 position, Quaternion normal)> OnHitPlaneOrMeshAt;
+        public event Action<(TransformableObject objectToSpawn, Vector3 hitPointPosition, Quaternion hitPointRotation)> OnSpawnObjectWithHitPosAndRotation;
 
         private ARRaycastManager arRaycastManager;
+        private ARPlaneManager arPlaneManager;
+        private ARAnchorManager arAnchorManager;
 
+        // Game Logic Variables
+        public ARAnchor WorldAnchor { get; set; }
+        public bool IsWorldAnchored { get; set; } = false;
         public bool SetDeactivateSpawning { set; get; }
 
         private void Awake()
         {
-            if (!FindObjectOfType<EventSystem>())
-            {
-                Debug.LogError(AssetName.NAME + ": No event system found...");
-            }
-
             Instance = this;
-
-            // Fallback logic
-            if (mainCam == null)
-            {
-                mainCam = Camera.main;
-                if (mainCam == null) mainCam = FindObjectOfType<Camera>();
-            }
+            if (mainCam == null) mainCam = Camera.main;
         }
 
         private void Start()
         {
-            if (placementMethod == ARPlacementMethod.planeDetection)
-            {
-                arRaycastManager = FindObjectOfType<ARRaycastManager>();
-            }
+            arRaycastManager = FindObjectOfType<ARRaycastManager>();
+            arPlaneManager = FindObjectOfType<ARPlaneManager>();
+            arAnchorManager = FindObjectOfType<ARAnchorManager>();
         }
 
         void Update()
         {
             if (EventSystem.current == null) return;
 
+            // FIX/CLEANUP: We skip all tap input if the game is Playing, 
+            //                 because the Shoot Button/Projectile handles the shot.
+            if (GameManager.Instance != null && GameManager.Instance.CurrentState == GameState.Playing)
+            {
+                return;
+            }
+
+            // If NOT Playing (Placing Anchor or PreGameSetup), allow placement taps:
+            HandlePlacementInput();
+        }
+
+        void HandlePlacementInput()
+        {
             bool isPressed = false;
             Vector2 screenPos = Vector2.zero;
-            // Initialize pointerId. -1 is commonly used for mouse input.
             int pointerId = -1;
 
-            // Editor Mouse
+            // Input Detection (Mouse or Touch)
 #if UNITY_EDITOR
             if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
             {
-                isPressed = true;
-                screenPos = Mouse.current.position.ReadValue();
-                // pointerId remains -1 for mouse.
+                isPressed = true; screenPos = Mouse.current.position.ReadValue();
             }
 #endif
-
-            // Android Touch
-            if (Touchscreen.current != null)
+            if (!isPressed && Touchscreen.current != null && Touchscreen.current.primaryTouch.press.wasPressedThisFrame)
             {
-                var touch = Touchscreen.current.primaryTouch;
-                if (touch.press.wasPressedThisFrame)
-                {
-                    isPressed = true;
-                    screenPos = touch.position.ReadValue();
-                    // Get the actual touch ID. 
-                    // This is essential for reliable UI detection on mobile when using Input System.
-                    pointerId = touch.touchId.value;
-                }
+                isPressed = true;
+                screenPos = Touchscreen.current.primaryTouch.position.ReadValue();
+                pointerId = Touchscreen.current.primaryTouch.touchId.value;
             }
 
             if (isPressed)
             {
-                // UI Block Check: Use the native, reliable check with the pointer ID.
-                if (EventSystem.current.IsPointerOverGameObject(pointerId))
-                {
-                    // Hit UI, stop world placement logic immediately.
-                    return;
-                }
+                // UI Block
+                PointerEventData pData = new PointerEventData(EventSystem.current) { position = screenPos, pointerId = pointerId };
+                List<RaycastResult> results = new List<RaycastResult>();
+                EventSystem.current.RaycastAll(pData, results);
+                if (results.Count > 0) return;
 
-                // If code reaches here, the tap was NOT on UI, proceed with Placement Logic.
-
-                // Placement Logic
-                if (placementMethod == ARPlacementMethod.planeDetection)
+                // Anchoring Logic
+                if (!IsWorldAnchored && placementMethod == ARPlacementMethod.planeDetection)
                 {
-                    TouchToRayPlaneDetection(screenPos);
+                    TryPlaceAnchor(screenPos);
                 }
                 else
                 {
-                    TouchToRayMeshing(screenPos);
-                    OnHitScreenAt?.Invoke(screenPos);
-                }
+                    // Standard Placement Logic
+                    if (placementMethod == ARPlacementMethod.planeDetection)
+                        TouchToRayPlaneDetection(screenPos);
+                    else
+                        TouchToRayMeshing(screenPos);
 
-                OnSpawnObjectWithScreenPos?.Invoke((PlacementBarLogic.Instance.GetPlacementObject(), screenPos));
+                    OnHitScreenAt?.Invoke(screenPos);
+                    OnSpawnObjectWithScreenPos?.Invoke((PlacementBarLogic.Instance.GetPlacementObject(), screenPos));
+                }
+            }
+        }
+
+        void TryPlaceAnchor(Vector2 screenPos)
+        {
+            Ray ray = mainCam.ScreenPointToRay(screenPos);
+            List<ARRaycastHit> hits = new List<ARRaycastHit>();
+
+            if (arRaycastManager.Raycast(ray, hits, TrackableType.Planes))
+            {
+                Pose hitPose = hits[0].pose;
+
+                // 1. CREATE LOGIC ANCHOR FIRST (Fixes the WorldAnchor is NULL error)
+                GameObject anchorGO = new GameObject("ARGameAnchor");
+                anchorGO.transform.position = hitPose.position;
+                anchorGO.transform.rotation = hitPose.rotation;
+
+                WorldAnchor = anchorGO.AddComponent<ARAnchor>();
+
+                if (WorldAnchor != null)
+                {
+                    IsWorldAnchored = true;
+                    DisablePlaneDetection();
+
+                    // 2. NOW INSTANTIATE VISUAL (It will be parented correctly inside InstantiateObjectAtPosition)
+                    InstantiateObjectAtPosition(hitPose.position, Quaternion.LookRotation(Vector3.forward));
+
+                    // The first object (the anchor object) should also clear the placement bar selection
+                    PlacementBarLogic.Instance.ClearObjectToInstantiate();
+                    Debug.Log("DEBUG PLACEMENT: World Anchor set and first object placed as child of anchor.");
+                }
+            }
+        }
+
+        public void DisablePlaneDetection()
+        {
+            if (arPlaneManager != null)
+            {
+                arPlaneManager.enabled = false;
+                foreach (var plane in arPlaneManager.trackables) plane.gameObject.SetActive(false);
+            }
+        }
+
+        public void EnablePlaneDetection()
+        {
+            if (arPlaneManager != null)
+            {
+                arPlaneManager.enabled = true;
+                foreach (var plane in arPlaneManager.trackables) plane.gameObject.SetActive(true);
             }
         }
 
         void TouchToRayPlaneDetection(Vector2 touch)
         {
-            if (deactivateSpawning)
-            {
-                OnHitScreenAt?.Invoke(touch);
-            }
+            if (deactivateSpawning) OnHitScreenAt?.Invoke(touch);
 
-            // Ensure we use the correct camera for the ray
             Ray ray = mainCam.ScreenPointToRay(touch);
-            List<ARRaycastHit> hits = new();
-
+            List<ARRaycastHit> hits = new List<ARRaycastHit>();
             if (arRaycastManager.Raycast(ray, hits, TrackableType.Planes))
             {
-                // Hit found
-                Pose hitPose = hits[0].pose;
-                InstantiateObjectAtPosition(hitPose.position, Quaternion.LookRotation(Vector3.forward));
+                InstantiateObjectAtPosition(hits[0].pose.position, Quaternion.LookRotation(Vector3.forward));
             }
         }
 
         void TouchToRayMeshing(Vector2 touch)
         {
-            if (deactivateSpawning)
-            {
-                OnHitScreenAt?.Invoke(touch);
-            }
+            if (deactivateSpawning) OnHitScreenAt?.Invoke(touch);
 
             Ray ray = mainCam.ScreenPointToRay(touch);
             if (Physics.Raycast(ray, out RaycastHit hit))
@@ -153,35 +187,34 @@ namespace ARMagicBar.Resources.Scripts.PlacementBar
             }
         }
 
-        public void SpawnObjectAtPosition(Vector3 position, Quaternion rotation)
-        {
-            InstantiateObjectAtPosition(position, rotation);
-        }
-
-        void InstantiateObjectAtPosition(Vector3 position, Quaternion rotation)
+        void InstantiateObjectAtPosition(Vector3 pos, Quaternion rot)
         {
             if (deactivateSpawning)
             {
-                OnHitPlaneOrMeshAt?.Invoke((position, rotation));
-                OnSpawnObjectWithHitPosAndRotation?.Invoke((PlacementBarLogic.Instance.GetPlacementObject(), position, rotation));
+                OnHitPlaneOrMeshAt?.Invoke((pos, rot));
+                OnSpawnObjectWithHitPosAndRotation?.Invoke((PlacementBarLogic.Instance.GetPlacementObject(), pos, rot));
                 return;
             }
 
-            placementObject = PlacementBarLogic.Instance.GetPlacementObject();
+            var objToPlace = PlacementBarLogic.Instance.GetPlacementObject();
+            if (objToPlace == null) return;
 
-            if (placementObject == null) return;
+            TransformableObject newObj = Instantiate(objToPlace, pos, rot);
 
-            TransformableObject placeObject = Instantiate(placementObject);
-            OnSpawnObject?.Invoke(placeObject);
-
-            placeObject.transform.position = position;
-
-            instantiatedObjects.Add(placeObject);
+            if (WorldAnchor != null)
+            {
+                newObj.transform.parent = WorldAnchor.transform;
+                Debug.Log($"DEBUG PLACEMENT: Target {newObj.name} parented to WorldAnchor. All targets should now be stable relative to the world anchor.");
+            }
+            else
+            {
+                // This log should only appear for the first object placement!
+                Debug.LogWarning("DEBUG PLACEMENT: Target placed but WorldAnchor is NULL. This should only happen for the VERY FIRST anchor placement.");
+            }
             justPlaced = true;
 
-            PlacementBarLogic.Instance.ClearObjectToInstantiate();
+            OnSpawnObject?.Invoke(newObj);
         }
+        public enum ARPlacementMethod { planeDetection, meshDetection }
     }
-
-    public enum ARPlacementMethod { planeDetection, meshDetection }
 }

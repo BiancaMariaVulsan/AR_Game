@@ -122,7 +122,7 @@ GameObject:
   - component: {fileID: 6323548690369141796}
   - component: {fileID: 6005283450651494862}
   - component: {fileID: 8833078671592207050}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: RotateCircleY
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -480,7 +480,7 @@ GameObject:
   - component: {fileID: 2312069911417163618}
   - component: {fileID: 6662028827474886799}
   - component: {fileID: 7021610227884674719}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ResetButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -652,7 +652,7 @@ GameObject:
   - component: {fileID: 8002334309446071524}
   - component: {fileID: 2963142841893425170}
   - component: {fileID: 205151568065601512}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -775,7 +775,7 @@ GameObject:
   - component: {fileID: 1688912198729845107}
   - component: {fileID: 5887850507663163209}
   - component: {fileID: 782941421469003975}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: WoodenPlank
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -937,7 +937,7 @@ GameObject:
   m_Component:
   - component: {fileID: 569374634172090142}
   - component: {fileID: 7015745768954182443}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Exit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1174,7 +1174,7 @@ GameObject:
   - component: {fileID: 1045774240931391411}
   - component: {fileID: 5207316797694739101}
   - component: {fileID: 2531999435349952122}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Arrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1286,7 +1286,7 @@ GameObject:
   - component: {fileID: 7104984416329484941}
   - component: {fileID: 7215598909707162537}
   - component: {fileID: 6031236170432789646}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Arrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1398,7 +1398,7 @@ GameObject:
   - component: {fileID: 8216326587320708538}
   - component: {fileID: 6274931829764344555}
   - component: {fileID: 1056349137242341219}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: UIElementScale
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1519,7 +1519,7 @@ GameObject:
   - component: {fileID: 8376668514402485893}
   - component: {fileID: 2330784667791019156}
   - component: {fileID: 6959658644311724752}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1638,7 +1638,7 @@ GameObject:
   - component: {fileID: 6072432628936447340}
   - component: {fileID: 61752712034517174}
   - component: {fileID: 5254377061556495517}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1741,7 +1741,7 @@ GameObject:
   - component: {fileID: 7322866945074542042}
   - component: {fileID: 1016985655265454266}
   - component: {fileID: 6261050210958731293}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BackToTransformUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1802,7 +1802,7 @@ GameObject:
   - component: {fileID: 8303629614186402710}
   - component: {fileID: 5018509731637201054}
   - component: {fileID: 1181806552840658293}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2056,7 +2056,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 603145480917944725}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: UI_TransformElements
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2235,7 +2235,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4838080207687099797}
   - component: {fileID: 3562004369165395268}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: WoodenPlankParent(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2281,7 +2281,7 @@ GameObject:
   - component: {fileID: 3671196646834741644}
   - component: {fileID: 1187972443502118746}
   - component: {fileID: 1017613429514811019}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BackgtoundBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2356,7 +2356,7 @@ GameObject:
   - component: {fileID: 771292403899325696}
   - component: {fileID: 6915287279285211282}
   - component: {fileID: 7097568579401119766}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: UITransformElements
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2783,7 +2783,7 @@ GameObject:
   - component: {fileID: 6246460775741441387}
   - component: {fileID: 8929402509466333645}
   - component: {fileID: 1200609672174219969}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: UIElementMove
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3044,7 +3044,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7595020002647251378}
   - component: {fileID: 7752072758092217837}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Gizmos_UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3162,7 +3162,7 @@ GameObject:
   - component: {fileID: 2372937313261589767}
   - component: {fileID: 799465322768718032}
   - component: {fileID: 9190819448124209484}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3419,7 +3419,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2768073751074322635}
   - component: {fileID: 1532207455530677022}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3646,7 +3646,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4113536660294346611}
   - component: {fileID: 4436386154906914694}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Delete
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3873,7 +3873,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2839397943666894047}
   - component: {fileID: 692493871306841722}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Reset
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3997,7 +3997,7 @@ GameObject:
   - component: {fileID: 3039141934514617780}
   - component: {fileID: 5591801712327339619}
   - component: {fileID: 2216985402558127883}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Arrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4108,7 +4108,7 @@ GameObject:
   - component: {fileID: 1704647687501406864}
   - component: {fileID: 1627161296549042673}
   - component: {fileID: 6300256229817473846}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: RotateCircleZ
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4352,7 +4352,7 @@ GameObject:
   - component: {fileID: 6131733178045369031}
   - component: {fileID: 5567325573332355016}
   - component: {fileID: 4338627295528504058}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: RotateCircleX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4546,7 +4546,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3129550298277623469}
   - component: {fileID: 867435316301065929}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: UIElementDelete
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4595,7 +4595,7 @@ GameObject:
   - component: {fileID: 2582034465171249561}
   - component: {fileID: 2154655259519486245}
   - component: {fileID: 7429952330159040236}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4715,7 +4715,7 @@ GameObject:
   - component: {fileID: 5684422888502369094}
   - component: {fileID: 8994013577060161490}
   - component: {fileID: 8827383762984176766}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: UIElementRotate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4803,7 +4803,7 @@ GameObject:
   - component: {fileID: 1164778767425271430}
   - component: {fileID: 7608252127204111933}
   - component: {fileID: 1943188343991483038}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4907,7 +4907,7 @@ GameObject:
   - component: {fileID: 3173832864537717585}
   - component: {fileID: 6659820420732465888}
   - component: {fileID: 6637643533334768849}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5026,13 +5026,14 @@ GameObject:
   - component: {fileID: 8045864618202986383}
   - component: {fileID: 1089134266192243573}
   - component: {fileID: 1415240945010842832}
-  - component: {fileID: 4756410848031404737}
   - component: {fileID: 3929132705121180796}
   - component: {fileID: 8042523051159851218}
   - component: {fileID: 1469364180239067619}
   - component: {fileID: 5872965476214815897}
-  - component: {fileID: 6627926800957095036}
-  m_Layer: 0
+  - component: {fileID: 1794321196319788640}
+  - component: {fileID: 6469067226215505818}
+  - component: {fileID: 3118643371133238380}
+  m_Layer: 6
   m_Name: WoodenPlankParent_Placeable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5079,18 +5080,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5941bddd49614fd1b004d0f7aaa8f517, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &4756410848031404737
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8747974547777701942}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac5ee8d93bd2242239aa661f62fb47d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &3929132705121180796
@@ -5160,7 +5149,55 @@ MonoBehaviour:
   selectedMaterialURP: {fileID: 2100000, guid: 4f61532d5437a45b681ae802f44572a1, type: 2}
   objectRenderers: []
   parentOfRenderer: {fileID: 0}
---- !u!114 &6627926800957095036
+--- !u!65 &1794321196319788640
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8747974547777701942}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &6469067226215505818
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8747974547777701942}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 3
+--- !u!114 &3118643371133238380
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5169,10 +5206,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 8747974547777701942}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb143c3dd4f139f498fe7c8cc0ea4e8d, type: 3}
+  m_Script: {fileID: 11500000, guid: 072b87bdc38868446b2251008f0ce757, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnablePhysicsInEvent
-  rb: {fileID: 1688912198729845107}
+  m_EditorClassIdentifier: Assembly-CSharp::ARTargetPractice.Core.Target
+  TransformableObjectReference: {fileID: 0}
+  scoreValue: 10
+  destroyDelay: 5
 --- !u!1 &8810726544929171112
 GameObject:
   m_ObjectHideFlags: 0

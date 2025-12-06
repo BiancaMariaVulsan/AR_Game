@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5162040701354484569}
   - component: {fileID: 7153187763610534684}
   - component: {fileID: 5200098264826530602}
+  - component: {fileID: 6782686077889207599}
   m_Layer: 0
   m_Name: WoodenPlank
   m_TagString: Untagged
@@ -138,7 +139,22 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 3
+--- !u!114 &6782686077889207599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2496043081741173025}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 072b87bdc38868446b2251008f0ce757, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ARTargetPractice.Core.Target
+  TransformableObjectReference: {fileID: 0}
+  scoreValue: 10
+  destroyDelay: 5
 --- !u!1 &7004456468352248755
 GameObject:
   m_ObjectHideFlags: 0

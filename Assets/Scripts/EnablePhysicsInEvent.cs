@@ -11,10 +11,17 @@ public class EnablePhysicsInEvent : MonoBehaviour
         rb.isKinematic = true;
     }
 
-    private void EnablePhysics()
+    public void EnablePhysics()
     {
-        rb.isKinematic = false;
-        rb.useGravity = true;
+        if (rb != null)
+        {
+            // 1. Unfreeze and enable gravity
+            rb.isKinematic = false;
+            rb.useGravity = true;
+
+            // 2. Force the Rigidbody to re-evaluate its position immediately (prevents sleeping/lag)
+            rb.WakeUp();
+        }
     }
 
     private void OnDestroy()

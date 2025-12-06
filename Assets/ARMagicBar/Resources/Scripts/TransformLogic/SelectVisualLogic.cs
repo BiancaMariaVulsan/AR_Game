@@ -180,19 +180,27 @@ namespace ARMagicBar.Resources.Scripts.TransformLogic
         
         void Show()
         {
-            for (int i = 0; i < rendererBaseSelectMaterialDict.Count; i++)
+            // Iterate directly over the dictionary key-value pairs (Renderer and materials).
+            foreach (var kvp in rendererBaseSelectMaterialDict)
             {
-                rendererBaseSelectMaterialDict.Keys.ElementAt(i).sharedMaterials =
-                    rendererBaseSelectMaterialDict.Values.ElementAt(i).Item2;
+                // CRITICAL FIX: Check if the Renderer (key) still exists before accessing its properties.
+                if (kvp.Key == null) continue;
+
+                // kvp.Value.Item2 is the selected material array
+                kvp.Key.sharedMaterials = kvp.Value.Item2;
             }
         }
 
         void Hide()
         {
-            for (int i = 0; i < rendererBaseSelectMaterialDict.Count; i++)
+            // Iterate directly over the dictionary key-value pairs (Renderer and materials).
+            foreach (var kvp in rendererBaseSelectMaterialDict)
             {
-                rendererBaseSelectMaterialDict.Keys.ElementAt(i).sharedMaterials =
-                    rendererBaseSelectMaterialDict.Values.ElementAt(i).Item1;
+                // CRITICAL FIX: Check if the Renderer (key) still exists before accessing its properties.
+                if (kvp.Key == null) continue;
+
+                // kvp.Value.Item1 is the base material array
+                kvp.Key.sharedMaterials = kvp.Value.Item1;
             }
         }
     }

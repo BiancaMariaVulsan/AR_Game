@@ -86,6 +86,7 @@ namespace ARMagicBar.Resources.Scripts.UIIndicator
         
             foreach (var renderer in renderers)
             {
+                if (renderer == null) continue;
                 if (renderer.bounds == default) continue;
             
                 float boundsMaxY = renderer.bounds.max.y;

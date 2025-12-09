@@ -13,6 +13,9 @@ namespace ARTargetPractice.Core
         [SerializeField] private int scoreValue = 10;
         [SerializeField] private float destroyDelay = 1.0f;
 
+        [Header("Audio")]
+        [SerializeField] private AudioSource audioSource;
+
         private Rigidbody rb;
         private bool isHit = false;
 
@@ -21,6 +24,11 @@ namespace ARTargetPractice.Core
         {
             // Note: TransformableObject.OnEnable() is inaccessible, so we handle setup here.
             rb = GetComponent<Rigidbody>();
+
+            if (audioSource == null)
+            {
+                audioSource = GetComponent<AudioSource>();
+            }
 
             // Starts frozen until StartGame is called
             if (rb != null)
@@ -52,6 +60,16 @@ namespace ARTargetPractice.Core
             if (isHit) return;
             isHit = true;
             Debug.Log($"DEBUG TARGET 2: OnHit received from projectile. Score value: {scoreValue}");
+
+            if (audioSource != null && audioSource.clip != null)
+            {
+                // Play the sound effect immediately on hit
+                audioSource.Play();
+            }
+            else
+            {
+                Debug.LogWarning($"Target {gameObject.name} was hit, but no boom sound was played because AudioSource is missing or clip is not assigned.");
+            }
 
             // 1. Add Score
             if (GameManager.Instance != null)

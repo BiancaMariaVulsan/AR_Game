@@ -4714,6 +4714,7 @@ GameObject:
   - component: {fileID: 8757270351700689479}
   - component: {fileID: 2617856638578155770}
   - component: {fileID: 5235381544824862151}
+  - component: {fileID: 6134900875469735662}
   m_Layer: 0
   m_Name: WorkBlock(Clone)
   m_TagString: Untagged
@@ -4965,6 +4966,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &6134900875469735662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8066936036165082756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3836d8b83cb1344eca7466ace8e78e38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ARMagicBar.Resources.Scripts.PlacementObjectVisual.PlacementObjectVisual
 --- !u!1 &8081726313924285768
 GameObject:
   m_ObjectHideFlags: 0

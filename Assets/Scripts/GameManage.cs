@@ -4,6 +4,7 @@ using ARMagicBar.Resources.Scripts.PlacementBar;
 using ARMagicBar.Resources.Scripts.TransformLogic;
 using UnityEngine.XR.ARFoundation;
 using TMPro;
+using UnityEngine.XR.ARSubsystems;
 
 namespace ARTargetPractice.Core
 {
@@ -35,6 +36,9 @@ namespace ARTargetPractice.Core
 
         [Header("System References")]
         [SerializeField] private MonoBehaviour selectObjectLogic;
+        [SerializeField] private ARSession arSession;
+
+        private bool wasTrackingLost = false;
 
         public bool IsPlaying => CurrentState == GameState.Playing;
 
@@ -60,6 +64,11 @@ namespace ARTargetPractice.Core
 
         void Update()
         {
+            if (CurrentState != GameState.GameOver)
+            {
+                CheckTrackingStateAndStabilize();
+            }
+
             if (CurrentState == GameState.Playing)
             {
                 currentTime -= Time.deltaTime;
@@ -69,6 +78,51 @@ namespace ARTargetPractice.Core
                 {
                     EndGame();
                 }
+            }
+        }
+
+        private void CheckTrackingStateAndStabilize()
+        {
+            // Check if the AR subsystem is initialized and running
+            if (arSession == null || arSession.subsystem == null) return;
+
+            // Get current tracking status
+            TrackingState currentState = arSession.subsystem.trackingState;
+
+            // Determine if tracking is poor (usually Limited or None)
+            bool trackingIsPoor = currentState != TrackingState.Tracking;
+
+            if (trackingIsPoor && !wasTrackingLost)
+            {
+                // Tracking was stable, but now it's poor -> FREEZE DYNAMIC OBJECTS
+                wasTrackingLost = true;
+                Debug.LogWarning($"STABILITY: AR Tracking degraded ({currentState}). Freezing dynamic objects.");
+
+                // Freeze the physics of ALL targets
+                Target[] allTargets = FindObjectsByType<Target>(FindObjectsSortMode.None);
+                foreach (var target in allTargets)
+                {
+                    Rigidbody rb = target.GetComponent<Rigidbody>();
+                    // Only targets already in a dynamic state should be frozen
+                    if (rb != null && !rb.isKinematic)
+                    {
+                        rb.isKinematic = true;
+                    }
+                }
+            }
+            else if (!trackingIsPoor && wasTrackingLost)
+            {
+                // Tracking was poor, but is now stable -> RESUME DYNAMIC OBJECTS
+                wasTrackingLost = false;
+                Debug.Log($"STABILITY: AR Tracking recovered ({currentState}). Resuming dynamic objects.");
+
+                // Re-enable physics for targets ONLY if the game is actively playing
+                if (CurrentState == GameState.Playing)
+                {
+                    EnableTargetPhysics(); // This method already exists and sets kinematic = false
+                }
+
+                // If the game is in PreGameSetup, the targets remain kinematic.
             }
         }
 

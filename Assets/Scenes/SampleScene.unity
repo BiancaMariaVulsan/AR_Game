@@ -728,7 +728,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_PlanePrefab: {fileID: 1584398855653455985, guid: a90a553ff9a8f454d8d382b9319a7402, type: 3}
-  m_DetectionMode: -1
+  m_DetectionMode: 5
 --- !u!114 &190715748
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -979,6 +979,7 @@ MonoBehaviour:
   timerText: {fileID: 101855606}
   finalScoreText: {fileID: 394989439}
   selectObjectLogic: {fileID: 1688748555}
+  arSession: {fileID: 0}
 --- !u!1 &394989437
 GameObject:
   m_ObjectHideFlags: 0

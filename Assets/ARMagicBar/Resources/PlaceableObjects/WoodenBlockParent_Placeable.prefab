@@ -1344,6 +1344,7 @@ GameObject:
   - component: {fileID: 4974751361240830882}
   - component: {fileID: 1164953706443795174}
   - component: {fileID: 5016515892911600578}
+  - component: {fileID: 8462122164261820066}
   m_Layer: 0
   m_Name: WoodenBlock
   m_TagString: Untagged
@@ -1609,6 +1610,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &8462122164261820066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2586678483702435107}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3836d8b83cb1344eca7466ace8e78e38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ARMagicBar.Resources.Scripts.PlacementObjectVisual.PlacementObjectVisual
 --- !u!1 &2602223531806432676
 GameObject:
   m_ObjectHideFlags: 0

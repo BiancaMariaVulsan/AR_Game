@@ -517,6 +517,7 @@ GameObject:
   - component: {fileID: 1207988431107436180}
   - component: {fileID: 2594114950845131411}
   - component: {fileID: 3451302715413231289}
+  - component: {fileID: 1519831967563915631}
   m_Layer: 0
   m_Name: WoodenPlane
   m_TagString: Untagged
@@ -782,6 +783,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1519831967563915631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 591107120634932618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3836d8b83cb1344eca7466ace8e78e38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ARMagicBar.Resources.Scripts.PlacementObjectVisual.PlacementObjectVisual
 --- !u!1 &663843476207250641
 GameObject:
   m_ObjectHideFlags: 0

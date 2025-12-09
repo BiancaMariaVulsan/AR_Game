@@ -33,6 +33,7 @@ namespace ARMagicBar.Resources.Scripts.PlacementBar
         private ARRaycastManager arRaycastManager;
         private ARPlaneManager arPlaneManager;
         private ARAnchorManager arAnchorManager;
+        private const float MIN_PLANE_AREA = 0.04f;
 
         // Game Logic Variables
         public ARAnchor WorldAnchor { get; set; }
@@ -123,6 +124,20 @@ namespace ARMagicBar.Resources.Scripts.PlacementBar
             {
                 Pose hitPose = hits[0].pose;
 
+                // We assume the first hit is the best hit and that it's an ARPlane.
+                ARPlane arPlane = hits[0].trackable.GetComponent<ARPlane>();
+
+                // Filter out small planes (often unstable or false positives)
+                if (arPlane != null)
+                {
+                    float planeArea = arPlane.size.x * arPlane.size.y;
+                    if (planeArea < MIN_PLANE_AREA)
+                    {
+                        Debug.LogWarning($"DEBUG PLACEMENT: Rejected placement on plane with area: {planeArea:F2} m^2 (Too small).");
+                        return; // Exit and ignore the touch
+                    }
+                }
+
                 // 1. CREATE LOGIC ANCHOR FIRST (Fixes the WorldAnchor is NULL error)
                 GameObject anchorGO = new GameObject("ARGameAnchor");
                 anchorGO.transform.position = hitPose.position;
@@ -171,6 +186,17 @@ namespace ARMagicBar.Resources.Scripts.PlacementBar
             List<ARRaycastHit> hits = new List<ARRaycastHit>();
             if (arRaycastManager.Raycast(ray, hits, TrackableType.Planes))
             {
+                // Check Plane Area on Subsequent Placements ---
+                ARPlane arPlane = hits[0].trackable.GetComponent<ARPlane>();
+                if (arPlane != null)
+                {
+                    float planeArea = arPlane.size.x * arPlane.size.y;
+                    if (planeArea < MIN_PLANE_AREA)
+                    {
+                        Debug.LogWarning($"DEBUG PLACEMENT: Rejected placement on plane with area: {planeArea:F2} m^2 (Too small for stable placement).");
+                        return; // Ignore placement
+                    }
+                }
                 InstantiateObjectAtPosition(hits[0].pose.position, Quaternion.LookRotation(Vector3.forward));
             }
         }

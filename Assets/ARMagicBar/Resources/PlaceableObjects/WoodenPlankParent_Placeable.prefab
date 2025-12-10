@@ -945,7 +945,8 @@ MonoBehaviour:
   TransformableObjectReference: {fileID: 0}
   scoreValue: 10
   destroyDelay: 1
-  audioSource: {fileID: 0}
+  destructionEffectPrefab: {fileID: 3691668675425726109, guid: 6ed71242cafc57242ae1eb0ed36325b5, type: 3}
+  audioSource: {fileID: 5500027410170083603}
 --- !u!82 &5500027410170083603
 AudioSource:
   m_ObjectHideFlags: 0

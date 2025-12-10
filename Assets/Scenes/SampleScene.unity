@@ -2385,6 +2385,7 @@ GameObject:
   - component: {fileID: 1670915635}
   - component: {fileID: 1670915634}
   - component: {fileID: 1670915639}
+  - component: {fileID: 1670915640}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -2644,6 +2645,23 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
+--- !u!114 &1670915640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1670915632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b15f82cc229284894964d2d30806969d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.XR.ARFoundation::UnityEngine.XR.ARFoundation.AROcclusionManager
+  m_HumanSegmentationStencilMode: 0
+  m_HumanSegmentationDepthMode: 0
+  m_EnvironmentDepthMode: 2
+  m_EnvironmentDepthTemporalSmoothing: 1
+  m_OcclusionPreferenceMode: 0
 --- !u!114 &1688748555 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4450476445503872903, guid: 47b589aed74d8412389cce5205dbe81c, type: 3}

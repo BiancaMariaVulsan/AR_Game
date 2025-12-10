@@ -12,6 +12,7 @@ namespace ARTargetPractice.Core
         [Header("Target Score/Physics")]
         [SerializeField] private int scoreValue = 10;
         [SerializeField] private float destroyDelay = 1.0f;
+        [SerializeField] private GameObject destructionEffectPrefab; // Assign your particle effect here
 
         [Header("Audio")]
         [SerializeField] private AudioSource audioSource;
@@ -70,6 +71,37 @@ namespace ARTargetPractice.Core
             {
                 Debug.LogWarning($"Target {gameObject.name} was hit, but no boom sound was played because AudioSource is missing or clip is not assigned.");
             }
+
+            if (destructionEffectPrefab != null)
+            {
+                // Spawn effect right at hit location
+                GameObject boom = Instantiate(
+                    destructionEffectPrefab,
+                    transform.position,
+                    Quaternion.LookRotation(hitDirection)
+                );
+
+                // Ensure it doesn't inherit odd AR scale
+                boom.transform.localScale = Vector3.one;
+
+                // Force short lifetime particle systems to play
+                var ps = boom.GetComponentInChildren<ParticleSystem>();
+                if (ps != null)
+                {
+                    ps.Play();
+
+                    float duration =
+                        ps.main.duration +
+                        ps.main.startLifetime.constantMax;
+
+                    Destroy(boom, duration);
+                }
+                else
+                {
+                    Destroy(boom, 1f);
+                }
+            }
+
 
             // 1. Add Score
             if (GameManager.Instance != null)

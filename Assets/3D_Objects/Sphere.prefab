@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3773441586169281581}
   - component: {fileID: 7338532800785550327}
   - component: {fileID: 8809958524846260261}
+  - component: {fileID: 5714788314657965188}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -152,3 +153,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04f702ed1ebd42842a41cea57fe6c2a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BallCollisionHandler
+--- !u!114 &5714788314657965188
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4274740931746586915}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c001f52d443f1a418ffd3e9d8b874c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BallMissHandler
+  missTimeout: 1.5

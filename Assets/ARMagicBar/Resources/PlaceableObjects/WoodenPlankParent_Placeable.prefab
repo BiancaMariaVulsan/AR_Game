@@ -900,7 +900,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -947,6 +947,7 @@ MonoBehaviour:
   destroyDelay: 1
   destructionEffectPrefab: {fileID: 3691668675425726109, guid: 6ed71242cafc57242ae1eb0ed36325b5, type: 3}
   audioSource: {fileID: 5500027410170083603}
+  targetLifespan: 5
 --- !u!82 &5500027410170083603
 AudioSource:
   m_ObjectHideFlags: 0

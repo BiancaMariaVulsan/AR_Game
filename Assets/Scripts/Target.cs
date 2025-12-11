@@ -17,14 +17,21 @@ namespace ARTargetPractice.Core
         [Header("Audio")]
         [SerializeField] private AudioSource audioSource;
 
+        [Tooltip("Time (in seconds) the target will exist *before* being hit. Game over if time runs out.")]
+        [SerializeField] private float targetLifespan = 5.0f;
+
         private Rigidbody rb;
         private bool isHit = false;
 
-        // FIX CS0115: Use Awake() for initialization
+        private float currentLifespan;
+        private bool timerRunning = false;
+
         protected void Awake()
         {
             // Note: TransformableObject.OnEnable() is inaccessible, so we handle setup here.
             rb = GetComponent<Rigidbody>();
+
+            currentLifespan = targetLifespan;
 
             if (audioSource == null)
             {
@@ -61,6 +68,8 @@ namespace ARTargetPractice.Core
             if (isHit) return;
             isHit = true;
             Debug.Log($"DEBUG TARGET 2: OnHit received from projectile. Score value: {scoreValue}");
+
+            timerRunning = false;
 
             if (audioSource != null && audioSource.clip != null)
             {
@@ -127,6 +136,27 @@ namespace ARTargetPractice.Core
                 GetComponent<Collider>().enabled = false;
 
             Destroy(gameObject, destroyDelay);
+        }
+
+        // Update method to run the timer
+        void Update()
+        {
+            // Only count down if the timer is explicitly running AND the target hasn't been hit yet
+            if (GameManager.Instance != null &&
+                            GameManager.Instance.CurrentState == GameState.Playing &&
+                            !isHit)
+            {
+                currentLifespan -= Time.deltaTime;
+
+                // Check for expiration
+                if (currentLifespan <= 0f)
+                {
+                    isHit = true;
+                    // Target expired logic (No score awarded, destroy object)
+                    Debug.Log($"DEBUG TARGET: Target {gameObject.name} expired. Destroying.");
+                    Destroy(gameObject);
+                }
+            }
         }
     }
 }

@@ -972,6 +972,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ARTargetPractice.Core.GameManager
   sessionDuration: 60
+  missCooldownDuration: 0.5
+  missTimePenalty: 10
   placementBarUI: {fileID: 1658929417}
   gameHUDUI: {fileID: 1835814361}
   gameOverUI: {fileID: 750761605}
@@ -1158,7 +1160,7 @@ Light:
     m_Strength: 1
     m_Bias: 0.05
     m_NormalBias: 0.4
-    m_NearPlane: 0.2
+    m_NearPlane: 0.099999994
     m_CullingMatrixOverride:
       e00: 1
       e01: 0
@@ -2539,7 +2541,7 @@ MonoBehaviour:
   m_LightEstimationMode: -1
   m_AutoFocus: 1
   m_ImageStabilization: 0
-  m_LightEstimation: 0
+  m_LightEstimation: -1
   m_FacingDirection: 1
   m_RenderMode: 0
 --- !u!81 &1670915637

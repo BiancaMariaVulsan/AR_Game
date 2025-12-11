@@ -26,6 +26,15 @@ namespace ARTargetPractice.Core
         public int Score { get; private set; } = 0;
         private float currentTime;
 
+        [Header("Shooting Cooldown")]
+        [Tooltip("Time delay (in seconds) applied after a projectile misses all targets.")]
+        [SerializeField] private float missCooldownDuration = 0.5f;
+        private float cooldownTimer = 0f;
+        public bool IsOnCooldown => cooldownTimer > 0f;
+
+        [Tooltip("Amount of time (in seconds) to subtract for each missed shot.")]
+        [SerializeField] private float missTimePenalty = 10.0f;
+
         [Header("UI References")]
         [SerializeField] private GameObject placementBarUI;
         [SerializeField] private GameObject gameHUDUI;
@@ -78,6 +87,32 @@ namespace ARTargetPractice.Core
                 {
                     EndGame();
                 }
+            }
+
+            if (cooldownTimer > 0f)
+            {
+                cooldownTimer -= Time.deltaTime;
+                if (cooldownTimer < 0f)
+                {
+                    cooldownTimer = 0f;
+                    // Optional: Add visual/audio feedback that shooting is available again
+                }
+            }
+        }
+
+        public void ApplyMissCooldown()
+        {
+            if (CurrentState == GameState.Playing)
+            {
+                currentTime -= missTimePenalty;
+                Debug.Log($"DEBUG PENALTY: Miss detected. Subtracting {missTimePenalty}s. Time left: {currentTime:F2}");
+
+                // Ensure the game ends immediately if the penalty drops time to zero or below
+                if (currentTime <= 0)
+                {
+                    EndGame();
+                }
+                UpdateHUD();
             }
         }
 
